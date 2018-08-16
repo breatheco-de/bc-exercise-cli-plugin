@@ -1,7 +1,7 @@
-const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const highlight = require('rehype-highlight')
+const highlight = require('rehype-highlight');
+const nodeModulesPath = path.resolve(__dirname, '../../../node_modules');
 module.exports = {
   mode: "development",
   entry: './index.js',
@@ -15,12 +15,24 @@ module.exports = {
             {
               loader: 'babel-loader',
               options: {
-                presets: ['babel-preset-env','babel-preset-react']
+                presets: [
+                  nodeModulesPath+'/babel-preset-env',
+                  nodeModulesPath+'/babel-preset-react'
+                ]
               }
             }
           ]
         },
         { test: /\.md$/, use: [
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: [
+                  nodeModulesPath+'/babel-preset-env',
+                  nodeModulesPath+'/babel-preset-react'
+                ]
+              }
+            },
             {
               loader: '@hugmanrique/react-markdown-loader',
               options: {
@@ -51,23 +63,21 @@ module.exports = {
   },
   resolve: {
     extensions: ['*', '.js', '.jsx'],
-    modules: [path.resolve(__dirname, '../../node_modules')]
+    modules: [nodeModulesPath]
   },
   resolveLoader: {
-    modules: [path.resolve(__dirname, '../../node_modules')]
+    modules: [nodeModulesPath]
   },
   devtool: "source-map",
   devServer: {
-    hot: true,
     quiet: false,
     disableHostCheck: true,
     historyApiFallback: true
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-        favicon: path.resolve(__dirname,'favicon.png'),
-        template: path.resolve(__dirname,'template.html')
+        favicon: path.resolve(__dirname,'../favicon.png'),
+        template: path.resolve(__dirname,'../template.html')
     })
   ]
 };

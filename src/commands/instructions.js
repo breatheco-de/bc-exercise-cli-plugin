@@ -2,12 +2,12 @@ const {Command, flags} = require('@oclif/command');
 const webpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
 let Console = require('../utils/console');
-const serverConfig = require("../utils/webpack.server.js");
+const serverConfig = require("../utils/config/webpack.server.js");
 const fs = require('fs');
 
 class InstructionsCommand extends Command {
   async run() {
-    const {flags} = this.parse(InstructionsCommand);
+    //const {flags} = this.parse(InstructionsCommand);
     if (fs.existsSync('./bc.json')) {
       const compiler = webpack(serverConfig);
       var server = new webpackDevServer(compiler, serverConfig.devServer);
