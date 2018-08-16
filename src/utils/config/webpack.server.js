@@ -70,7 +70,7 @@ module.exports = {
   },
   devtool: "source-map",
   devServer: {
-    quiet: false,
+    quiet: true,
     disableHostCheck: true,
     historyApiFallback: true
   },

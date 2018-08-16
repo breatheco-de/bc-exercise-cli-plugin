@@ -71,7 +71,7 @@ module.exports = {
   devtool: "source-map",
   devServer: {
     contentBase:  './dist',
-    quiet: true,
+    quiet: false,
     disableHostCheck: true,
     historyApiFallback: true
   },

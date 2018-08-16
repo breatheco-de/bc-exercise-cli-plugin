@@ -41,8 +41,8 @@ class HelloCommand extends Command {
       ];
       const compiler = webpack(webpackConfig);
       var server = new webpackDevServer(compiler, webpackConfig.devServer);
-      server.listen(process.env.PORT, process.env.IP, function(err) {
-          Console.success('A server has started runing your exercise here: http://'+process.env.IP+':'+process.env.PORT);
+      server.listen(flags.port, flags.host, function(err) {
+          Console.success('A server has started runing your exercise here: http://'+flags.host+':'+flags.port);
           Console.info('Finishing bundle... wait...');
       });
     }
@@ -52,10 +52,12 @@ class HelloCommand extends Command {
   }
 }
 
-HelloCommand.description = `Run a particular exercise in the browser`
+HelloCommand.description = `Run a particular exercise in the browser`;
 
 HelloCommand.flags = {
   number: flags.string({char: 'n', description: 'number of the exercise', default: null }),
-}
+  port: flags.string({char: 'p', description: 'server port', default: process.env.PORT || '8080' }),
+  host: flags.string({char: 'h', description: 'server host', default: process.env.IP || 'localhost' })
+};
 
-module.exports = HelloCommand
+module.exports = HelloCommand;
