@@ -9,6 +9,7 @@ class InstructionsCommand extends Command {
     const {flags} = this.parse(InstructionsCommand);
     if (fs.existsSync('./bc.json')) {
       const compiler = webpack(serverConfig);
+      serverConfig.devServer.quiet = !flags.output;
       var server = new webpackDevServer(compiler, serverConfig.devServer);
       server.listen(flags.port, flags.host, function() {
           Console.info('Instructions have been published here http://'+flags.host+':'+flags.port);
@@ -29,10 +30,11 @@ Press control + c to stop this server whenever you want`);
   }
 }
 
-InstructionsCommand.description = `Runs a small server with all the exercise instructions`
+InstructionsCommand.description = `Runs a small server with all the exercise instructions`;
 
 InstructionsCommand.flags = {
   port: flags.string({char: 'p', description: 'server port', default: '8081' }),
   host: flags.string({char: 'h', description: 'server host', default: process.env.IP || 'localhost' }),
-}
-module.exports = InstructionsCommand
+  output: flags.boolean({char: 'o', description: 'show build output on console', default: false })
+};
+module.exports = InstructionsCommand;

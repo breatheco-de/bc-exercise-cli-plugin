@@ -18,6 +18,9 @@ module.exports = {
                 presets: [
                   nodeModulesPath+'/babel-preset-env',
                   nodeModulesPath+'/babel-preset-react'
+                ],
+                plugins:[
+                  require(nodeModulesPath+'/babel-plugin-syntax-dynamic-import'),
                 ]
               }
             }
@@ -30,9 +33,6 @@ module.exports = {
                 presets: [
                   nodeModulesPath+'/babel-preset-env',
                   nodeModulesPath+'/babel-preset-react'
-                ],
-                plugins:[
-                  nodeModulesPath+'/babel-plugin-syntax-dynamic-import',
                 ]
               }
             },
@@ -73,7 +73,6 @@ module.exports = {
   },
   devtool: "source-map",
   devServer: {
-    quiet: true,
     disableHostCheck: true,
     historyApiFallback: true
   },
