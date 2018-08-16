@@ -30,6 +30,9 @@ module.exports = {
                 presets: [
                   nodeModulesPath+'/babel-preset-env',
                   nodeModulesPath+'/babel-preset-react'
+                ],
+                plugins:[
+                  nodeModulesPath+'/babel-plugin-syntax-dynamic-import',
                 ]
               }
             },
