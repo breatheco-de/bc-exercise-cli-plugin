@@ -1,8 +1,0 @@
-{
-    "exercises": [
-        { "slug": "01-hello-world", "title": "Hello World" },
-        { "slug": "02-separate-files", "title": "Split into several files" },
-        { "slug": "03-jsx", "title": "Using JSX instead of strings" },
-        { "slug": "04-custom-tag", "title": "Creating custom tags" }
-    ]
-}

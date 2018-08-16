@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const reactConfig = require("../utils/webpack.react.js");
 let Console = require('../utils/console');
 const fs = require('fs');
+const path = require('path');
 
 class HelloCommand extends Command {
   async run() {
@@ -16,6 +17,7 @@ class HelloCommand extends Command {
           Console.error('Exercise does not exists');
           return;
         }
+        console.log(reactConfig.resolveLoader);
         reactConfig.entry = './exercises/'+bcConfig.exercises[flags.number-1].slug+'/index.js';
         config = reactConfig;
         const compiler = webpack(config);

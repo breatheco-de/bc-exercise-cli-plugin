@@ -11,11 +11,16 @@ module.exports = {
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
-          use: ['babel-loader']
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: ['babel-preset-env','babel-preset-react']
+              }
+            }
+          ]
         },
-        { test: /\.md$/, use: [{
-              loader: 'babel-loader'
-            },
+        { test: /\.md$/, use: [
             {
               loader: '@hugmanrique/react-markdown-loader',
               options: {
@@ -46,11 +51,15 @@ module.exports = {
   },
   resolve: {
     extensions: ['*', '.js', '.jsx'],
+    modules: [path.resolve(__dirname, '../../node_modules')]
+  },
+  resolveLoader: {
+    modules: [path.resolve(__dirname, '../../node_modules')]
   },
   devtool: "source-map",
   devServer: {
     hot: true,
-    quiet: true,
+    quiet: false,
     disableHostCheck: true,
     historyApiFallback: true
   },

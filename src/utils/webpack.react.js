@@ -15,7 +15,10 @@ module.exports = {
           exclude: /node_modules/,
           use: [
             {
-                loader: "babel-loader"
+              loader: 'babel-loader',
+              options: {
+                presets: ['babel-preset-env','babel-preset-react']
+              }
             },
             {
                 loader: 'eslint-loader',
@@ -57,6 +60,10 @@ module.exports = {
   },
   resolve: {
     extensions: ['*', '.js', '.jsx'],
+    modules: [path.resolve(__dirname, '../../node_modules')]
+  },
+  resolveLoader: {
+    modules: [path.resolve(__dirname, '../../node_modules')]
   },
   devtool: "source-map",
   devServer: {
