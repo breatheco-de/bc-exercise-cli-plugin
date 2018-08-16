@@ -1,22 +1,30 @@
 const {Command, flags} = require('@oclif/command');
-let shell = require('shelljs');
 let fs = require('fs');
 const webpack = require('webpack');
-const reactConfig = require("../utils/webpack.react.js");
 let Console = require('../utils/console');
+const path = require('path');
 
 class HelloCommand extends Command {
   async run() {
     const {flags} = this.parse(HelloCommand);
     if (fs.existsSync('./bc.json')) {
-//npm run compile && mocha -b --compilers js:babel/register --require test/helpers.js test/**/*.js || echo
+      let webpackConfig = null;
       if(flags.number){
         //if(shell.which('jest') && shell.which('babel-cli')){
-          reactConfig.output.filename = flags.number + '.bundle.js';
-          reactConfig.devtool = false;
-          reactConfig.output.path = process.cwd() + '/compiled';
-          reactConfig.entry = './exercises/'+flags.number+'/index.js';
-          const compiler = webpack(reactConfig);
+          var bcConfig = JSON.parse(fs.readFileSync('./bc.json', 'utf8'));
+          const webpackConfigPath = path.resolve(__dirname,`../utils/config/webpack.${bcConfig.compiler}.js`);
+          if (!fs.existsSync(webpackConfigPath)){
+            Console.error(`Uknown compiler '${bcConfig.compiler}' specified on the bc.json file`);
+            return;
+          }
+          
+          webpackConfig = require(webpackConfigPath);
+        
+          webpackConfig.output.filename = flags.number + '.bundle.js';
+          webpackConfig.devtool = false;
+          webpackConfig.output.path = process.cwd() + '/compiled';
+          webpackConfig.entry = './exercises/'+flags.number+'/index.js';
+          const compiler = webpack(webpackConfig);
           compiler.run((err, stats) => {
             if (err || stats.hasErrors()) {
               console.log(stats.toString({
