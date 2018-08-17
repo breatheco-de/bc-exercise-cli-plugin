@@ -1,7 +1,7 @@
 const {Command, flags} = require('@oclif/command');
 let fs = require('fs');
 const webpack = require('webpack');
-let Console = require('../utils/console');
+let Console = require('../../utils/console');
 const path = require('path');
 
 class HelloCommand extends Command {
@@ -12,7 +12,7 @@ class HelloCommand extends Command {
       if(flags.number){
         //if(shell.which('jest') && shell.which('babel-cli')){
           var bcConfig = JSON.parse(fs.readFileSync('./bc.json', 'utf8'));
-          const webpackConfigPath = path.resolve(__dirname,`../utils/config/webpack.${bcConfig.compiler}.js`);
+          const webpackConfigPath = path.resolve(__dirname,`../../utils/config/webpack.${bcConfig.compiler}.js`);
           if (!fs.existsSync(webpackConfigPath)){
             Console.error(`Uknown compiler '${bcConfig.compiler}' specified on the bc.json file`);
             return;

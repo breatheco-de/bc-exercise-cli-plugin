@@ -1,7 +1,7 @@
 const {Command, flags} = require('@oclif/command');
 const webpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
-let Console = require('../utils/console');
+let Console = require('../../utils/console');
 const fs = require('fs');
 const path = require('path');
 
@@ -10,12 +10,13 @@ class HelloCommand extends Command {
     const {flags} = this.parse(HelloCommand);
     if (fs.existsSync('./bc.json')) {
       let webpackConfig = null;
-      
+      let entryURL = null;
       if(!flags.number){
         Console.error('You need to explicity specify what exercise number');
-        Console.help('For example: $ bc run-exercise -n=1');
+        Console.help('For example: $ bc run:exercise -n=1');
         return;
       }
+      else entryURL = './exercises/'+bcConfig.exercises[flags.number-1].slug+'/index.js';
         
       var bcConfig = JSON.parse(fs.readFileSync('./bc.json', 'utf8'));
       if(typeof bcConfig.exercises[flags.number-1] == 'undefined'){
@@ -36,7 +37,7 @@ class HelloCommand extends Command {
       
       webpackConfig = require(webpackConfigPath);
       webpackConfig.entry = [
-        './exercises/'+bcConfig.exercises[flags.number-1].slug+'/index.js',
+        entryURL,
         `webpack-dev-server/client?http://${process.env.IP}:${process.env.PORT}`
       ];
       const compiler = webpack(webpackConfig);

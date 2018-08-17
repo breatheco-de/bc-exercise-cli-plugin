@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const highlight = require('rehype-highlight');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const nodeModulesPath = path.resolve(__dirname, '../../../node_modules');
 module.exports = {
   mode: "development",
@@ -26,12 +26,6 @@ module.exports = {
                   require(nodeModulesPath+'/babel-plugin-syntax-dynamic-import')
                 ]
               }
-            },
-            {
-                loader: 'eslint-loader',
-                options: {
-                  configFile: path.resolve(__dirname,'eslint.react.json')
-                }
             }
           ]
         },
@@ -65,7 +59,7 @@ module.exports = {
           }]
         }, //css only files
         { 
-          test: /\.(png|svg|jpg|jpeg|gif)$/, use: {
+          test: /\.(png|svg|jpg|gif)$/, use: {
             loader: 'file-loader',
             options: { name: '[name].[ext]' } 
           }

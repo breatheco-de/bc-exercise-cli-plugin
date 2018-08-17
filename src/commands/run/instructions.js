@@ -1,8 +1,8 @@
 const {Command, flags} = require('@oclif/command');
 const webpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
-let Console = require('../utils/console');
-const serverConfig = require("../utils/config/webpack.server.js");
+let Console = require('../../utils/console');
+const serverConfig = require("../../utils/config/webpack.server.js");
 const fs = require('fs');
 class InstructionsCommand extends Command {
   async run() {
@@ -12,15 +12,17 @@ class InstructionsCommand extends Command {
       serverConfig.devServer.quiet = !flags.output;
       var server = new webpackDevServer(compiler, serverConfig.devServer);
       server.listen(flags.port, flags.host, function() {
-          Console.info('Instructions have been published here http://'+flags.host+':'+flags.port);
-          Console.help(`What to do next?
+        Console.info('Instructions have been published here http://'+flags.host+':'+flags.port);
+        Console.help(`What to do next?
 -----------
-You should open a new terminal to run the first exercise by doing: 
-$ bc run-exercise -n=1
+Open the website and read the instructions carefully for the first exercise.
 
-You can leave this server runing in order to keep reading the instructions as you do the exercises
+Then, open the index.js file of the first exercise and see it live by doing: 
+$ bc run:exercise -n=1
 
-Press control + c to stop this server whenever you want`);
+Press control + c to stop this instructions server any time.`);
+        // TODO: Video about how to do the exercises
+        //Console.help('Here is a small explanatory video: ');  
       });
     }
     else{

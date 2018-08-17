@@ -22,7 +22,7 @@ $ npm install -g bc-exercise-cli
 $ oclif-example COMMAND
 running command...
 $ oclif-example (-v|--version|version)
-bc-exercise-cli/0.0.28 linux-x64 node-v8.11.3
+bc-exercise-cli/0.5.0 linux-x64 node-v8.11.3
 $ oclif-example --help [COMMAND]
 USAGE
   $ oclif-example COMMAND
@@ -31,33 +31,18 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`oclif-example instructions`](#oclif-example-instructions)
-* [`oclif-example run-exercise`](#oclif-example-run-exercise)
-* [`oclif-example test-exercise`](#oclif-example-test-exercise)
+* [`oclif-example run:exercise`](#oclif-example-runexercise)
+* [`oclif-example run:instructions`](#oclif-example-runinstructions)
+* [`oclif-example run:server`](#oclif-example-runserver)
+* [`oclif-example test:exercise`](#oclif-example-testexercise)
 
-## `oclif-example instructions`
-
-Runs a small server with all the exercise instructions
-
-```
-USAGE
-  $ oclif-example instructions
-
-OPTIONS
-  -h, --host=host  [default: 0.0.0.0] server host
-  -o, --output     show build output on console
-  -p, --port=port  [default: 8081] server port
-```
-
-_See code: [src/commands/instructions.js](https://github.com/alesanchezr/bc-exercise-cli/blob/v0.0.28/src/commands/instructions.js)_
-
-## `oclif-example run-exercise`
+## `oclif-example run:exercise`
 
 Run a particular exercise in the browser
 
 ```
 USAGE
-  $ oclif-example run-exercise
+  $ oclif-example run:exercise
 
 OPTIONS
   -h, --host=host      [default: 0.0.0.0] server host
@@ -65,19 +50,52 @@ OPTIONS
   -p, --port=port      [default: 8080] server port
 ```
 
-_See code: [src/commands/run-exercise.js](https://github.com/alesanchezr/bc-exercise-cli/blob/v0.0.28/src/commands/run-exercise.js)_
+_See code: [src/commands/run/exercise.js](https://github.com/alesanchezr/bc-exercise-cli/blob/v0.5.0/src/commands/run/exercise.js)_
 
-## `oclif-example test-exercise`
+## `oclif-example run:instructions`
+
+Runs a small server with all the exercise instructions
+
+```
+USAGE
+  $ oclif-example run:instructions
+
+OPTIONS
+  -h, --host=host  [default: 0.0.0.0] server host
+  -o, --output     show build output on console
+  -p, --port=port  [default: 8081] server port
+```
+
+_See code: [src/commands/run/instructions.js](https://github.com/alesanchezr/bc-exercise-cli/blob/v0.5.0/src/commands/run/instructions.js)_
+
+## `oclif-example run:server`
+
+Runs a dummy server without any configuration
+
+```
+USAGE
+  $ oclif-example run:server
+
+OPTIONS
+  -c, --compiler=compiler  compiler type: react, vanillajs, etc.
+  -e, --entry=entry        entry file path for the server
+  -h, --host=host          [default: 0.0.0.0] server host
+  -p, --port=port          [default: 8080] server port
+```
+
+_See code: [src/commands/run/server.js](https://github.com/alesanchezr/bc-exercise-cli/blob/v0.5.0/src/commands/run/server.js)_
+
+## `oclif-example test:exercise`
 
 Run a particular exercise in the browser
 
 ```
 USAGE
-  $ oclif-example test-exercise
+  $ oclif-example test:exercise
 
 OPTIONS
   -n, --number=number  number of the exercise
 ```
 
-_See code: [src/commands/test-exercise.js](https://github.com/alesanchezr/bc-exercise-cli/blob/v0.0.28/src/commands/test-exercise.js)_
+_See code: [src/commands/test/exercise.js](https://github.com/alesanchezr/bc-exercise-cli/blob/v0.5.0/src/commands/test/exercise.js)_
 <!-- commandsstop -->
