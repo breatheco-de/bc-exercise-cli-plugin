@@ -4,11 +4,19 @@ const webpack = require('webpack');
 let Console = require('../../utils/console');
 const fs = require('fs');
 const path = require('path');
-
+const bcConfig = require('../../utils/bcConfig.js');
 class HelloCommand extends Command {
   async run() {
     const {flags} = this.parse(HelloCommand);
-    if (fs.existsSync('./bc.json')) {
+    
+    Console.info("Loading the config...");
+    const bcExercises = bcConfig('./');
+    Console.info("Building the exercise index...");
+    console.log("");
+    bcExercises.buildIndex(function(err, data){
+      if(err) Console.error('There was an error reading the bc.json and exercises: '+err);
+      
+      var bcConfig = bcExercises.getConfig();
       let webpackConfig = null;
       let entryURL = null;
       if(!flags.number){
@@ -18,7 +26,6 @@ class HelloCommand extends Command {
       }
       else entryURL = './exercises/'+bcConfig.exercises[flags.number-1].slug+'/index.js';
         
-      var bcConfig = JSON.parse(fs.readFileSync('./bc.json', 'utf8'));
       if(typeof bcConfig.exercises[flags.number-1] == 'undefined'){
         Console.error('Exercise number does not exists');
         return;
@@ -29,7 +36,7 @@ class HelloCommand extends Command {
         return;
       }
       
-      const webpackConfigPath = path.resolve(__dirname,`../utils/config/webpack.${bcConfig.compiler}.js`);
+      const webpackConfigPath = path.resolve(__dirname,`../../utils/config/webpack.${bcConfig.compiler}.js`);
       if (!fs.existsSync(webpackConfigPath)){
         Console.error(`Uknown compiler '${bcConfig.compiler}' specified on the bc.json file`);
         return;
@@ -46,10 +53,7 @@ class HelloCommand extends Command {
           Console.success('A server has started runing your exercise here: http://'+flags.host+':'+flags.port);
           Console.info('Finishing bundle... wait...');
       });
-    }
-    else{
-      this.error('No bc.json file found');
-    }
+    });
   }
 }
 
