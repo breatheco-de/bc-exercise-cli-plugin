@@ -1,7 +1,7 @@
 {
   "name": "bc-exercise-cli",
   "description": "Command Line Tool for downloading, coding and runing coding exercises",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "author": "Alejandro Sanchez @alesanchezr",
   "bugs": "https://github.com/alesanchezr/bc-exercise-cli/issues",
   "dependencies": {
@@ -31,6 +31,7 @@
     "node-sass": "^4.5.3",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-iframe": "^1.2.0",
     "react-loadable": "^5.5.0",
     "react-test-renderer": "^16.4.2",
     "rehype-highlight": "^2.2.0",
