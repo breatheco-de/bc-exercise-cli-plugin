@@ -1,7 +1,9 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const highlight = require('rehype-highlight');
 const nodeModulesPath = path.resolve(__dirname, '../../../node_modules');
+const c9 = require(path.resolve(__dirname, '../c9'));
 module.exports = {
   mode: "development",
   entry: './index.js',
@@ -80,6 +82,12 @@ module.exports = {
     new HtmlWebpackPlugin({
         favicon: path.resolve(__dirname,'../favicon.png'),
         template: path.resolve(__dirname,'../template.html')
+    }),
+    new webpack.DefinePlugin({ 
+      'C9_PUBLIC_URL': JSON.stringify(c9.workspace.serverUrl),
+      'C9_USER': JSON.stringify(c9.workspace.owner),
+      'C9_IDE_URL': JSON.stringify(c9.workspace.ideUrl),
+      'C9_PROJECT': JSON.stringify(c9.workspace.name)
     })
   ]
 };
