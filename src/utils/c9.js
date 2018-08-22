@@ -15,7 +15,7 @@ var c9workspace = {
     c9workspace.owner = process.env.C9_USER;
     c9workspace.name = process.env.C9_PROJECT;
     c9workspace.ideUrl = "https://ide.c9.io/" + process.env.C9_USER + "/" + c9workspace.name;
-    c9workspace.serverUrl = "https://" + c9workspace.name + "-" + c9workspace.owner + ".c9user.io";
+    c9workspace.serverUrl = "https://" + c9workspace.name + "-" + c9workspace.owner + ".c9users.io";
 })();
 var c9config = {
     isC9: c9workspace.isC9,
