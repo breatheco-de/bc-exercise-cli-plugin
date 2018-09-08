@@ -15,6 +15,7 @@ class InstructionsCommand extends Command {
     
     Console.info("Loading the config...");
     var exercises = bcConfig('./');
+    Console.info("Building the exercise index...");
     exercises.buildIndex();
     var config = exercises.getConfig();
     
@@ -59,10 +60,11 @@ class InstructionsCommand extends Command {
     app.use('/',express.static('_app'));
     
     server.listen( flags.port, function () {  
-        console.log('Example app listening on port '+flags.port+'!');  
+        Console.success("To start solving the exercises go to the following link: "+flags.host+":"+flags.port)
     });
     
     io.on('connection', function (socket) {
+      Console.info("Conection with client successfully established");
       socket.emit('compiler', { action: 'log', status: 'ready', logs: ['Ready to work...'] });
       socket.on('compiler', function ({action, data}) {
         if(typeof data.exerciseSlug == 'undefined'){
@@ -71,7 +73,7 @@ class InstructionsCommand extends Command {
           return;
         }
 
-        socket.emit('compiler', { action: 'log', status: 'busy', logs: ['Procesing exercise '+data.exerciseSlug] });
+        socket.emit('compiler', { action: 'log', status: 'compiling', logs: ['Compiling exercise '+data.exerciseSlug] });
         const entryURL = './exercises/'+data.exerciseSlug+'/index.js';
         const comp = bcCompiler({
           socket: socket,
