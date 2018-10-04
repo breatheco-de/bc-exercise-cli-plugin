@@ -3,7 +3,7 @@ let Console = require('../../utils/console');
 var express = require('express');  
 const bcConfig = require('../../utils/bcConfig.js');
 const bcCompiler = require('../../utils/bcCompiler.js');
-const fs = require('fs');
+const bcTest = require('../../utils/bcTest.js');
 var bodyParser = require('body-parser');
 class InstructionsCommand extends Command {
   async run() {
@@ -60,29 +60,44 @@ class InstructionsCommand extends Command {
     app.use('/',express.static('_app'));
     
     server.listen( flags.port, function () {  
-        Console.success("To start solving the exercises go to the following link: "+flags.host+":"+flags.port)
+        Console.success("To start solving the exercises go to the following link: "+flags.host+":"+flags.port);
     });
     
     io.on('connection', function (socket) {
       Console.info("Conection with client successfully established");
-      socket.emit('compiler', { action: 'log', status: 'ready', logs: ['Ready to work...'] });
+      socket.emit('compiler', { action: 'log', status: 'ready', logs: ['Ready to compile...'] });
       socket.on('compiler', function ({action, data}) {
         if(typeof data.exerciseSlug == 'undefined'){
           socket.emit('compiler', { action: 'log', status: 'internal-error', logs: ['No exercise slug specified'] });
           Console.error("No exercise slug especified");
           return;
         }
-
-        socket.emit('compiler', { action: 'log', status: 'compiling', logs: ['Compiling exercise '+data.exerciseSlug] });
-        const entryURL = './exercises/'+data.exerciseSlug+'/index.js';
-        const comp = bcCompiler({
-          socket: socket,
-          config: config.compiler,
-          entry: entryURL,
-          publicPath: '/preview',
-          address: process.env.IP,
-          port: process.env.PORT
-        });
+        const entryURL = './exercises/'+data.exerciseSlug;
+        socket.emit('compiler',{ action: 'clean', status: 'pending', logs: ['Working...'] });
+        switch(action){
+          case "build":
+            socket.emit('compiler', { action: 'log', status: 'compiling', logs: ['Compiling exercise '+data.exerciseSlug] });
+            bcCompiler({
+              socket: socket,
+              config: config,
+              entry: entryURL+'/index.js',
+              publicPath: '/preview',
+              address: process.env.IP,
+              port: process.env.PORT
+            });
+          break;
+          case "test":
+            socket.emit('compiler', { action: 'log', status: 'testing', logs: ['Testing your code output'] });
+            bcTest({
+              socket: socket,
+              excercise: data.exerciseSlug,
+              testsPath: entryURL+'/tests.js'
+            });
+          break;
+          default:
+            socket.emit('compiler', { action: 'log', status: 'internal-error', logs: ['Uknown action'] });
+          break;
+        }
         
       });
     });
