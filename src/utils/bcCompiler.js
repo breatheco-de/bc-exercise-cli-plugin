@@ -1,4 +1,3 @@
-const webpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
