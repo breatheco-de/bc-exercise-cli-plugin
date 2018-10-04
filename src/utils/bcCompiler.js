@@ -7,7 +7,7 @@ let Console = require('./console');
 
 module.exports = function({ config, entry, port, address, socket, publicPath }){
     
-    const webpackConfigPath = path.resolve(__dirname,`./config/webpack.${config.compiler}.js`);
+    const webpackConfigPath = path.resolve(__dirname,`./config/webpack/${config.compiler}.config.js`);
     if (!fs.existsSync(webpackConfigPath)){
       Console.error(`Uknown compiler: '${config.compiler}'`);
       socket.emit('compiler', { action: 'log', status: 'internal-error', logs: [`Uknown compiler: '${config.compiler}'`] });

@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const highlight = require('rehype-highlight');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const nodeModulesPath = path.resolve(__dirname, '../../../node_modules');
+const nodeModulesPath = path.resolve(__dirname, '../../../../node_modules');
 module.exports = {
   mode: "development",
   output: {
@@ -89,8 +89,8 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-        favicon: path.resolve(__dirname,'../favicon.png'),
-        template: path.resolve(__dirname,'../template.html')
+        favicon: path.resolve(__dirname,'../../favicon.png'),
+        template: path.resolve(__dirname,'../../template.html')
     })
   ]
 };

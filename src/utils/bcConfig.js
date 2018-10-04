@@ -29,6 +29,7 @@ module.exports = (filePath) => {
             if (!exercise) throw Error('Exercise not found');
             const basePath = exercise.path;
             if (!fs.existsSync(basePath+'/'+name)) throw Error('File not found: '+basePath+'/'+name);
+            else if(fs.lstatSync(basePath+'/'+name).isDirectory()) return 'Error: This is not a file to be read, but a directory: '+basePath+'/'+name;
             return fs.readFileSync(basePath+'/'+name);
         },
         saveFile: (slug, name, content) => {
@@ -42,7 +43,11 @@ module.exports = (filePath) => {
             const exercise = config.exercises.find(ex => ex.slug == slug);
             if (!exercise) throw Error('Exercise not found');
             const basePath = exercise.path;
-            const getFiles = source => fs.readdirSync(source).map(file => ({ path: source+'/'+file, name: file}));
+            const isDirectory = source => fs.lstatSync(source).isDirectory();
+            const getFiles = source => fs.readdirSync(source)
+                                        .map(file => ({ path: source+'/'+file, name: file}))
+                                            .filter(file => (file.name != 'tests.js' && !isDirectory(file.path)))
+                                                .sort((f1, f2) => (f1.name == "index.js") ? -1 : 1 );
             return getFiles(basePath);
         },
         buildIndex: () => {

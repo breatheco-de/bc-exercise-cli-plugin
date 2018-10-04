@@ -25,7 +25,7 @@ class HelloCommand extends Command {
         }
       }
       
-      const webpackConfigPath = path.resolve(__dirname,`../../utils/config/webpack.${flags.compiler}.js`);
+      const webpackConfigPath = path.resolve(__dirname,`../../utils/config/webpack/${flags.compiler}.config.js`);
       if (!fs.existsSync(webpackConfigPath)){
         Console.error(`Uknown compiler '${flags.compiler}' specified`);
         return;

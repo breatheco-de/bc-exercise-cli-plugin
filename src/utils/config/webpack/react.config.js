@@ -1,14 +1,14 @@
-const path = require('path');
 const webpack = require('webpack');
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const highlight = require('rehype-highlight');
-const externalLinks = require('remark-external-links');
-const nodeModulesPath = path.resolve(__dirname, '../../../node_modules');
-const c9 = require(path.resolve(__dirname, '../c9'));
+const nodeModulesPath = path.resolve(__dirname, '../../../../node_modules');
 module.exports = {
   mode: "development",
-  entry: './index.js',
-  output: {filename: 'bundle.js'},
+  output: {
+    filename: '[name].js',
+    publicPath: '/'
+  },
   module: {
     rules: [
         {
@@ -19,13 +19,19 @@ module.exports = {
               loader: 'babel-loader',
               options: {
                 presets: [
-                  nodeModulesPath+'/babel-preset-env',
-                  nodeModulesPath+'/babel-preset-react'
+                  nodeModulesPath+'/@babel/preset-env',
+                  nodeModulesPath+'/@babel/preset-react'
                 ],
                 plugins:[
-                  require(nodeModulesPath+'/babel-plugin-syntax-dynamic-import'),
+                  require(nodeModulesPath+'/babel-plugin-syntax-dynamic-import')
                 ]
               }
+            },
+            {
+                loader: 'eslint-loader',
+                options: {
+                  configFile: path.resolve(__dirname,'../eslint/react.lint.json')
+                }
             }
           ]
         },
@@ -43,18 +49,14 @@ module.exports = {
               loader: '@hugmanrique/react-markdown-loader',
               options: {
                 rehypePlugins: [
-                  highlight,
-                  [
-                    externalLinks,
-                    { target: '_blank', rel: ['nofollow'] }
-                  ]
+                  highlight
                 ]
               }
             }
           ]
         },
         {
-          test: /\.(scss|css)$/, use: [{
+          test: /\.(css|scss)$/, use: [{
               loader: "style-loader" // creates style nodes from JS strings
           }, {
               loader: "css-loader" // translates CSS into CommonJS
@@ -63,7 +65,7 @@ module.exports = {
           }]
         }, //css only files
         { 
-          test: /\.(png|svg|jpg|gif)$/, use: {
+          test: /\.(png|svg|jpg|jpeg|gif)$/, use: {
             loader: 'file-loader',
             options: { name: '[name].[ext]' } 
           }
@@ -80,23 +82,21 @@ module.exports = {
   },
   devtool: "source-map",
   devServer: {
+    contentBase:  './dist',
+    quiet: false,
     disableHostCheck: true,
     historyApiFallback: true,
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
       "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+    }
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-        favicon: path.resolve(__dirname,'../favicon.png'),
-        template: path.resolve(__dirname,'../template.html')
-    }),
-    new webpack.DefinePlugin({ 
-      'C9_PUBLIC_URL': JSON.stringify(c9.workspace.serverUrl),
-      'C9_USER': JSON.stringify(c9.workspace.owner),
-      'C9_IDE_URL': JSON.stringify(c9.workspace.ideUrl),
-      'C9_PROJECT': JSON.stringify(c9.workspace.name)
+        favicon: path.resolve(__dirname,'../../favicon.png'),
+        template: path.resolve(__dirname,'../../template.html')
     })
   ]
 };
