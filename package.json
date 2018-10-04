@@ -1,7 +1,7 @@
 {
   "name": "bc-exercise-cli",
   "description": "Command Line Tool for downloading, coding and runing coding exercises",
-  "version": "0.6.01",
+  "version": "0.7.00",
   "author": "Alejandro Sanchez @alesanchezr",
   "bugs": "https://github.com/alesanchezr/bc-exercise-cli/issues",
   "dependencies": {
