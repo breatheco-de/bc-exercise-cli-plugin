@@ -19,7 +19,8 @@
 			"exports": "never",
 			"functions": "ignore"
 		}],
-		"react/jsx-indent": ["error", 4],
+		"react/jsx-indent": [0],
+		"react/style-prop-object": [2],
 		"react/prop-types": [2],
 		"node/no-unsupported-features": 0,
 		"unicorn/filename-case": 0

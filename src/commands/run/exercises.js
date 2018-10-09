@@ -3,6 +3,7 @@ let Console = require('../../utils/console');
 var express = require('express');  
 const bcConfig = require('../../utils/bcConfig.js');
 const bcCompiler = require('../../utils/bcCompiler.js');
+const bcPrettier = require('../../utils/bcPrettier.js');
 const bcTest = require('../../utils/bcTest.js');
 var bodyParser = require('body-parser');
 class InstructionsCommand extends Command {
@@ -50,6 +51,11 @@ class InstructionsCommand extends Command {
         res.end();
     });
     
+    app.get('/asset/:fileName', function(req, res) {
+        res.write(exercises.getAsset(req.params.fileName));
+        res.end();
+    });
+    
     const textBodyParser = bodyParser.text();
     app.put('/exercise/:slug/file/:fileName', textBodyParser, function(req, res) {
         exercises.saveFile(req.params.slug, req.params.fileName, req.body);
@@ -74,6 +80,7 @@ class InstructionsCommand extends Command {
         }
         const entryURL = './exercises/'+data.exerciseSlug;
         socket.emit('compiler',{ action: 'clean', status: 'pending', logs: ['Working...'] });
+        
         switch(action){
           case "build":
             socket.emit('compiler', { action: 'log', status: 'compiling', logs: ['Compiling exercise '+data.exerciseSlug] });
@@ -94,12 +101,20 @@ class InstructionsCommand extends Command {
               testsPath: entryURL+'/tests.js'
             });
           break;
+          case "prettify":
+            socket.emit('compiler', { action: 'log', status: 'prettifying', logs: ['Making your code prettier'] });
+            bcPrettier({ 
+              socket, 
+              exerciseSlug: data.exerciseSlug,
+              fileName: data.fileName 
+            });
+          break;
           default:
             socket.emit('compiler', { action: 'log', status: 'internal-error', logs: ['Uknown action'] });
           break;
         }
-        
       });
+        
     });
   }
 }

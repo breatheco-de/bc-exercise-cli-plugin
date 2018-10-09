@@ -2,6 +2,10 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const highlight = require('rehype-highlight');
+
+const prettyConfig = require('../prettier/react.config.js');
+const PrettierPlugin = require("prettier-webpack-plugin");
+
 const nodeModulesPath = path.resolve(__dirname, '../../../../node_modules');
 module.exports = {
   mode: "development",
@@ -97,6 +101,7 @@ module.exports = {
     new HtmlWebpackPlugin({
         favicon: path.resolve(__dirname,'../../favicon.png'),
         template: path.resolve(__dirname,'../../template.html')
-    })
+    }),
+    new PrettierPlugin(prettyConfig)
   ]
 };

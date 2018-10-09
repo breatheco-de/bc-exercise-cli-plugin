@@ -3,6 +3,7 @@ let shell = require('shelljs');
 const fs = require('fs');
 let Console = require('./console');
 const jest = require('jest');
+const nodeModulesPath = path.resolve(__dirname, '../../node_modules');
 const babelTransformPath = require.resolve('./config/jest/babelTransform.js');
 
 module.exports = function({ socket, testsPath, excercise }){
@@ -24,6 +25,7 @@ module.exports = function({ socket, testsPath, excercise }){
     var jestConfig = {
         verbose: true,
         testRegex: testsPath,
+        moduleDirectories: [nodeModulesPath],
         transform: {
           "^.+\\.js?$": babelTransformPath
         }
