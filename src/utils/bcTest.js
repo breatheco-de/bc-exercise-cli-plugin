@@ -2,11 +2,8 @@ const path = require('path');
 let shell = require('shelljs');
 const fs = require('fs');
 let Console = require('./console');
-const jest = require('jest');
-const nodeModulesPath = path.resolve(__dirname, '../../node_modules');
-const babelTransformPath = require.resolve('./config/jest/babelTransform.js');
 
-module.exports = function({ socket, testsPath, excercise }){
+module.exports = function({ socket, testsPath, excercise, config }){
     
     if (!shell.which('jest')) {
       Console.fatal('You need to have jest installed to run test the exercises');
@@ -22,14 +19,15 @@ module.exports = function({ socket, testsPath, excercise }){
       return;
     }
     
-    var jestConfig = {
-        verbose: true,
-        testRegex: testsPath,
-        moduleDirectories: [nodeModulesPath],
-        transform: {
-          "^.+\\.js?$": babelTransformPath
-        }
-    };
+    const webpackConfigPath = path.resolve(__dirname,`./config/jest/${config.compiler}.config.js`);
+    if (!fs.existsSync(webpackConfigPath)){
+      Console.error(`Uknown compiler: '${config.compiler}'`);
+      socket.emit('compiler', { action: 'log', status: 'internal-error', logs: [`Uknown compiler: '${config.compiler}'`] });
+      return;
+    }
+    
+    var jestConfig = require(webpackConfigPath);
+    jestConfig.testRegex = testsPath; //path to the tests
     
     //var spawn = require('child_process').spawn;
     //spawn('node', ['./child.js'], { shell: true, stdio: 'inherit' });

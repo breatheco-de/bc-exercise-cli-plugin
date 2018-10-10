@@ -97,6 +97,7 @@ class InstructionsCommand extends Command {
             socket.emit('compiler', { action: 'log', status: 'testing', logs: ['Testing your code output'] });
             bcTest({
               socket: socket,
+              config: config,
               excercise: data.exerciseSlug,
               testsPath: entryURL+'/tests.js'
             });

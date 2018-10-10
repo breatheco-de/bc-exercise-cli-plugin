@@ -22,7 +22,7 @@ $ npm install -g bc-exercise-cli
 $ oclif-example COMMAND
 running command...
 $ oclif-example (-v|--version|version)
-bc-exercise-cli/0.7.04 linux-x64 node-v8.11.4
+bc-exercise-cli/0.7.05 linux-x64 node-v8.11.4
 $ oclif-example --help [COMMAND]
 USAGE
   $ oclif-example COMMAND
@@ -49,7 +49,7 @@ OPTIONS
   -p, --port=port  [default: 8080] server port
 ```
 
-_See code: [src/commands/run/exercises.js](https://github.com/alesanchezr/bc-exercise-cli/blob/v0.7.04/src/commands/run/exercises.js)_
+_See code: [src/commands/run/exercises.js](https://github.com/alesanchezr/bc-exercise-cli/blob/v0.7.05/src/commands/run/exercises.js)_
 
 ## `oclif-example run:server`
 
@@ -66,7 +66,7 @@ OPTIONS
   -p, --port=port          [default: 8080] server port
 ```
 
-_See code: [src/commands/run/server.js](https://github.com/alesanchezr/bc-exercise-cli/blob/v0.7.04/src/commands/run/server.js)_
+_See code: [src/commands/run/server.js](https://github.com/alesanchezr/bc-exercise-cli/blob/v0.7.05/src/commands/run/server.js)_
 
 ## `oclif-example test:exercise`
 
@@ -80,5 +80,5 @@ OPTIONS
   -n, --number=number  number of the exercise
 ```
 
-_See code: [src/commands/test/exercise.js](https://github.com/alesanchezr/bc-exercise-cli/blob/v0.7.04/src/commands/test/exercise.js)_
+_See code: [src/commands/test/exercise.js](https://github.com/alesanchezr/bc-exercise-cli/blob/v0.7.05/src/commands/test/exercise.js)_
 <!-- commandsstop -->
