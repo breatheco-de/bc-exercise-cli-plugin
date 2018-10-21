@@ -8,8 +8,7 @@ module.exports = function({ socket, testsPath, excercise, config }){
     if (!shell.which('jest')) {
       Console.fatal('You need to have jest installed to run test the exercises');
       Console.help('Please run $ npm i jest -g');
-      socket.emit('compiler', { action: 'log', status: 'internal-error', logs: [`You need to have jest installed to run test the exercises, please run $ npm i jest -g`] });
-      shell.exit(1);
+      socket.emit('compiler', { action: 'log', status: 'internal-error', logs: [`You need to have jest installed to run test the exercises, please run on your terminal $ npm i jest -g`] });
       return;
     }
     
@@ -21,8 +20,8 @@ module.exports = function({ socket, testsPath, excercise, config }){
     
     const webpackConfigPath = path.resolve(__dirname,`./config/jest/${config.compiler}.config.js`);
     if (!fs.existsSync(webpackConfigPath)){
-      Console.error(`Uknown compiler: '${config.compiler}'`);
-      socket.emit('compiler', { action: 'log', status: 'internal-error', logs: [`Uknown compiler: '${config.compiler}'`] });
+      Console.error(`Uknown compiler: '${config.compiler}' found on bc.json`);
+      socket.emit('compiler', { action: 'log', status: 'internal-error', logs: [`Uknown compiler: '${config.compiler}' found on bc.json`] });
       return;
     }
     

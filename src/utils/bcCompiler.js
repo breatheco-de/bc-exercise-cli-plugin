@@ -42,8 +42,9 @@ module.exports = function({ config, entry, port, address, socket, publicPath }){
     
     socket.emit('compiler',{ action: 'log', log: ['Compiling...'], status: 'compiling' });
     compiler.run((err, stats) => {
+
         if (err) {
-            console.error(err);
+            socket.emit('compiler',{ status: 'compiler-error', action: 'log', logs: [ err.message || err ] });
             return;
         }
     
@@ -57,4 +58,4 @@ module.exports = function({ config, entry, port, address, socket, publicPath }){
         
         socket.emit('compiler',{ status, action: 'log', logs: [ output ] });
     });
-}
+};
