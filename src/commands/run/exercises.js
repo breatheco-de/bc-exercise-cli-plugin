@@ -51,7 +51,7 @@ class InstructionsCommand extends Command {
         res.end();
     });
     
-    app.get('/asset/:fileName', function(req, res) {
+    app.get('/assets/:fileName', function(req, res) {
         res.write(exercises.getAsset(req.params.fileName));
         res.end();
     });
