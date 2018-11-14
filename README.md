@@ -31,6 +31,6 @@ You can follow these steps:
 1. Create your project folder anywhere in your computer and name it however you want.
 2. Get inside that project folder and create a new folder for each exercise that you would like your students to complete.
 3. Inside each exercise folder you cna ahve 3 files:
-  - README.md with the instructions of the exercise.
-  - index.js: this will be the default content that student will se on the exercise, they should update this file to complete the exercise. You can add a boilerplate and also some comments to help students.
-  - tests.js: Here is where you auto-grade the exercises, you have to create a testing scrip using the [jest library](https://jestjs.io/). More testing libraries will be added later for other languages.
+  - `README.md` with the instructions of the exercise.
+  - `index.js` this will be the default content that student will se on the exercise, they should update this file to complete the exercise. You can add a boilerplate and also some comments to help students.
+  - `tests.js`: Here is where you auto-grade the exercises, you have to create a testing scrip using the [jest library](https://jestjs.io/). More testing libraries will be added later for other languages.
