@@ -12,7 +12,7 @@ $ bc run:exercises
 And the BreatheCode CLI will start a local server with all instructions and a coding editor for the solutions like this:
 
 <p align="center">
-  <img width="300px" src="https://raw.githubusercontent.com/breatheco-de/bc-exercise-cli-plugin/master/preview.gif">
+  <img width="400px" src="https://raw.githubusercontent.com/breatheco-de/bc-exercise-cli-plugin/master/preview.gif">
 </p>
 
 ### For teachers, it is really simple to create exercises
