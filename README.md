@@ -34,3 +34,7 @@ You can follow these steps:
   - `README.md` with the instructions of the exercise.
   - `index.js` this will be the default content that student will se on the exercise, they should update this file to complete the exercise. You can add a boilerplate and also some comments to help students.
   - `tests.js`: Here is where you auto-grade the exercises, you have to create a testing scrip using the [jest library](https://jestjs.io/). More testing libraries will be added later for other languages.
+  
+<p align="center">
+  <img width="400px" src="https://raw.githubusercontent.com/breatheco-de/bc-exercise-cli-plugin/master/teacher_preview.gif">
+</p>
